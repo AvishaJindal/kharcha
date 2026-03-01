@@ -765,6 +765,186 @@
 
   .filter-chip.active { background: var(--accent); border-color: var(--accent); color: #000; }
 
+  /* ─── VOICE ─── */
+  .voice-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #1a1f35, #1e1a30);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .voice-btn:active { transform: scale(0.98); }
+
+  .voice-btn.listening {
+    border-color: var(--danger);
+    background: linear-gradient(135deg, #2a1020, #1e1535);
+    animation: pulse-border 1.2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(224,80,96,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(224,80,96,0); }
+  }
+
+  .mic-icon {
+    font-size: 22px;
+    transition: transform 0.2s;
+  }
+
+  .voice-btn.listening .mic-icon {
+    animation: mic-pulse 0.8s ease-in-out infinite;
+  }
+
+  @keyframes mic-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  .voice-transcript {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    min-height: 44px;
+    display: none;
+    font-style: italic;
+  }
+
+  .voice-transcript.has-text { color: var(--text); font-style: normal; }
+
+  .voice-confirm-card {
+    background: var(--surface);
+    border: 2px solid var(--accent3);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 16px;
+    display: none;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .voice-confirm-title {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .voice-confirm-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .voice-confirm-row:last-of-type { border-bottom: none; }
+  .voice-confirm-row .lbl { color: var(--muted); }
+  .voice-confirm-row .val { font-family: var(--font-display); font-weight: 600; }
+  .voice-confirm-row .val.amount { color: var(--accent); font-size: 18px; }
+
+  .voice-confirm-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .voice-confirm-actions .btn-confirm {
+    flex: 1;
+    background: var(--accent3);
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 14px;
+    padding: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .voice-confirm-actions .btn-confirm:active { transform: scale(0.97); }
+
+  .voice-confirm-actions .btn-edit {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .voice-tips {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+
+  .voice-tips .tip-title {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .voice-tips .tip {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(42,48,80,0.5);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .voice-tips .tip:last-child { border-bottom: none; }
+  .voice-tips .tip .ex { color: var(--accent); font-family: var(--font-display); font-weight: 600; }
+
+  .no-voice-msg {
+    background: rgba(224,80,96,0.1);
+    border: 1px solid rgba(224,80,96,0.3);
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 13px;
+    color: var(--danger);
+    text-align: center;
+    margin-bottom: 16px;
+    display: none;
+  }
+
   .pwa-install-banner {
     background: linear-gradient(135deg, #1a2340, #1e1a30);
     border: 1px solid var(--border);
@@ -839,6 +1019,44 @@
 
 <!-- ═══════════════════════════════ ADD ═══════════════════════════════ -->
 <div class="view" id="view-add">
+
+  <!-- VOICE SECTION -->
+  <div id="no-voice-msg" class="no-voice-msg">
+    🎤 Voice input is not supported in this browser. Please use Safari on iPhone or Chrome on Android.
+  </div>
+
+  <button class="voice-btn" id="voice-btn" onclick="toggleVoice()">
+    <span class="mic-icon">🎤</span>
+    <span id="voice-btn-label">Tap to speak your expense</span>
+  </button>
+
+  <div class="voice-transcript" id="voice-transcript"></div>
+
+  <div class="voice-confirm-card" id="voice-confirm-card">
+    <div class="voice-confirm-title">✦ Understood — confirm?</div>
+    <div class="voice-confirm-row"><span class="lbl">Amount</span><span class="val amount" id="vc-amount">—</span></div>
+    <div class="voice-confirm-row"><span class="lbl">Description</span><span class="val" id="vc-desc">—</span></div>
+    <div class="voice-confirm-row"><span class="lbl">Category</span><span class="val" id="vc-cat">—</span></div>
+    <div class="voice-confirm-row"><span class="lbl">Sub-category</span><span class="val" id="vc-subcat">—</span></div>
+    <div class="voice-confirm-row"><span class="lbl">Payment</span><span class="val" id="vc-payment">—</span></div>
+    <div class="voice-confirm-row"><span class="lbl">Date</span><span class="val" id="vc-date">—</span></div>
+    <div class="voice-confirm-actions">
+      <button class="btn-confirm" onclick="confirmVoiceExpense()">✓ Save</button>
+      <button class="btn-edit" onclick="fillFormFromVoice()">✎ Edit first</button>
+    </div>
+  </div>
+
+  <div class="voice-tips">
+    <div class="tip-title">💬 Try saying...</div>
+    <div class="tip"><span class="ex">"500 on groceries at Blinkit"</span></div>
+    <div class="tip"><span class="ex">"spent 1200 on fuel yesterday via UPI"</span></div>
+    <div class="tip"><span class="ex">"add 350 for medicines, paid by credit card"</span></div>
+    <div class="tip"><span class="ex">"800 rupees entertainment, Netflix"</span></div>
+    <div class="tip"><span class="ex">"150 snacks at Swiggy today"</span></div>
+  </div>
+
+  <div style="text-align:center;color:var(--muted);font-size:12px;margin-bottom:16px;letter-spacing:0.5px">— OR FILL MANUALLY —</div>
+
   <div class="form-card">
     <div class="form-row">
       <label>Amount (₹)</label>
@@ -1675,6 +1893,275 @@ function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ═══════════════════════════════════════════════════════════════
+//  VOICE INPUT
+// ═══════════════════════════════════════════════════════════════
+let recognition = null;
+let isListening = false;
+let voiceParsed = null;
+
+function initVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    document.getElementById('no-voice-msg').style.display = 'block';
+    document.getElementById('voice-btn').style.display = 'none';
+    document.querySelectorAll('.voice-tips').forEach(el => el.style.display = 'none');
+    return;
+  }
+
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-IN'; // Indian English — handles Indian accents & mixed speech
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 3;
+
+  recognition.onstart = () => {
+    isListening = true;
+    const btn = document.getElementById('voice-btn');
+    btn.classList.add('listening');
+    document.getElementById('voice-btn-label').textContent = 'Listening... speak now';
+    const t = document.getElementById('voice-transcript');
+    t.style.display = 'block';
+    t.textContent = '🎙️ Listening...';
+    t.classList.remove('has-text');
+    document.getElementById('voice-confirm-card').style.display = 'none';
+  };
+
+  recognition.onresult = (evt) => {
+    let interim = '';
+    let final = '';
+    for (let i = evt.resultIndex; i < evt.results.length; i++) {
+      const t = evt.results[i][0].transcript;
+      if (evt.results[i].isFinal) final += t;
+      else interim += t;
+    }
+    const display = final || interim;
+    const transcriptEl = document.getElementById('voice-transcript');
+    transcriptEl.textContent = display;
+    transcriptEl.classList.toggle('has-text', !!display);
+    if (final) processVoiceText(final.trim());
+  };
+
+  recognition.onerror = (evt) => {
+    stopListening();
+    if (evt.error === 'not-allowed') showToast('Microphone permission denied', true);
+    else if (evt.error === 'no-speech') showToast('No speech detected, try again', true);
+    else showToast('Voice error: ' + evt.error, true);
+  };
+
+  recognition.onend = () => stopListening();
+}
+
+function toggleVoice() {
+  if (!recognition) { showToast('Voice not supported in this browser', true); return; }
+  if (isListening) {
+    recognition.stop();
+  } else {
+    document.getElementById('voice-confirm-card').style.display = 'none';
+    recognition.start();
+  }
+}
+
+function stopListening() {
+  isListening = false;
+  const btn = document.getElementById('voice-btn');
+  btn.classList.remove('listening');
+  document.getElementById('voice-btn-label').textContent = 'Tap to speak your expense';
+}
+
+// ── NLP Parser ──
+function processVoiceText(text) {
+  const lower = text.toLowerCase();
+  const result = { amount: null, desc: null, catId: null, subCat: null, payment: 'Credit Card', date: today(), notes: text };
+
+  // ─ Amount: "500", "₹500", "500 rupees", "five hundred"
+  const wordNums = { 'zero':0,'one':1,'two':2,'three':3,'four':4,'five':5,'six':6,'seven':7,'eight':8,'nine':9,'ten':10,
+    'eleven':11,'twelve':12,'thirteen':13,'fourteen':14,'fifteen':15,'sixteen':16,'seventeen':17,'eighteen':18,'nineteen':19,
+    'twenty':20,'thirty':30,'forty':40,'fifty':50,'sixty':60,'seventy':70,'eighty':80,'ninety':90,
+    'hundred':100,'thousand':1000,'lakh':100000,'lac':100000 };
+
+  let amtMatch = lower.match(/(?:rs\.?|₹|inr|rupees?)?\s*(\d[\d,]*(?:\.\d{1,2})?)\s*(?:rupees?|rs\.?|₹|bucks?)?/);
+  if (amtMatch) {
+    result.amount = parseFloat(amtMatch[1].replace(/,/g,''));
+  } else {
+    // Try word-based number
+    let words = lower.split(/\s+/);
+    let total = 0, current = 0;
+    for (const w of words) {
+      const n = wordNums[w];
+      if (n !== undefined) {
+        if (n === 100) current *= 100;
+        else if (n >= 1000) { total += (current || 1) * n; current = 0; }
+        else current += n;
+      }
+    }
+    if (total + current > 0) result.amount = total + current;
+  }
+
+  // ─ Date: "yesterday", "today", "last monday", "on 25th"
+  if (/\byesterday\b/.test(lower)) {
+    const d = new Date(); d.setDate(d.getDate()-1);
+    result.date = d.toISOString().split('T')[0];
+  } else if (/\btoday\b/.test(lower)) {
+    result.date = today();
+  } else {
+    const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    const dayMatch = lower.match(/\b(?:last\s+)?(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/);
+    if (dayMatch) {
+      const target = days.indexOf(dayMatch[1]);
+      const d = new Date();
+      let diff = d.getDay() - target;
+      if (diff <= 0) diff += 7;
+      d.setDate(d.getDate() - diff);
+      result.date = d.toISOString().split('T')[0];
+    }
+    const dateNumMatch = lower.match(/\b(\d{1,2})(?:st|nd|rd|th)?\b/);
+    if (dateNumMatch && !result.amount) {
+      const day = parseInt(dateNumMatch[1]);
+      if (day >= 1 && day <= 31) {
+        const d = new Date(state.currentYear, state.currentMonth, day);
+        result.date = d.toISOString().split('T')[0];
+      }
+    }
+  }
+
+  // ─ Payment method
+  if (/\bupi\b/.test(lower) || /\bgpay\b/.test(lower) || /\bphonepe\b/.test(lower) || /\bpaytm\b/.test(lower)) {
+    result.payment = 'UPI';
+  } else if (/\bdebit\b/.test(lower)) {
+    result.payment = 'Debit Card';
+  } else if (/\bcash\b/.test(lower)) {
+    result.payment = 'Cash';
+  } else if (/\bcredit\b/.test(lower)) {
+    result.payment = 'Credit Card';
+  }
+
+  // ─ Category & subcategory matching
+  // Build a flat keyword map from all categories and their subs
+  const catKeywords = {
+    food: ['food','eat','eating','restaurant','dining','dinner','lunch','breakfast','snack','grocery','groceries','cafe','coffee','chai','tea','swiggy','zomato','blinkit','zepto','instamart','biryani','pizza','burger','dine','meal','tiffin','hotel','dhaba'],
+    transport: ['transport','fuel','petrol','diesel','cab','uber','ola','auto','rickshaw','metro','bus','train','flight','parking','toll','rapido','travel','commute','bike','taxi'],
+    shopping: ['shopping','clothes','clothing','shirt','shoes','dress','amazon','flipkart','myntra','ajio','meesho','electronics','phone','laptop','gadget','furniture','home','kitchen','beauty','cosmetics','online','order','purchase'],
+    bills: ['bill','bills','electricity','internet','wifi','broadband','mobile','recharge','water','rent','insurance','emi','subscription','maintenance','society','gas','lpg'],
+    health: ['health','medical','medicine','medicines','doctor','hospital','clinic','pharmacy','chemist','lab','test','gym','fitness','yoga','mental','therapy','dental','eye'],
+    entertainment: ['entertainment','movie','movies','cinema','netflix','amazon prime','hotstar','disney','spotify','youtube','games','gaming','book','books','event','concert','show','outing','pub','bar','club'],
+  };
+
+  // Also check sub-category names from user's actual categories
+  for (const cat of state.categories) {
+    const id = cat.id;
+    if (!catKeywords[id]) catKeywords[id] = [];
+    catKeywords[id].push(...cat.name.toLowerCase().split(/\s+/));
+    for (const sub of (cat.subs||[])) {
+      catKeywords[id].push(...sub.toLowerCase().split(/[\s\/]+/));
+    }
+  }
+
+  // Score categories by keyword matches
+  const scores = {};
+  for (const [catId, keywords] of Object.entries(catKeywords)) {
+    scores[catId] = 0;
+    for (const kw of keywords) {
+      if (kw.length > 2 && lower.includes(kw)) scores[catId] += kw.length; // longer match = higher score
+    }
+  }
+
+  const bestCat = Object.entries(scores).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1])[0];
+  if (bestCat) {
+    result.catId = bestCat[0];
+    // Now try to match sub-category
+    const cat = getCat(result.catId);
+    if (cat.subs) {
+      for (const sub of cat.subs) {
+        if (lower.includes(sub.toLowerCase())) { result.subCat = sub; break; }
+        // partial word match
+        const subWords = sub.toLowerCase().split(/\s+/);
+        if (subWords.some(w => w.length > 3 && lower.includes(w))) { result.subCat = sub; break; }
+      }
+    }
+  }
+
+  // ─ Description: extract merchant/place name
+  // Look for patterns like "at X", "from X", "on X", "for X"
+  const merchantMatch = text.match(/\b(?:at|from|for|on)\s+([A-Z][a-zA-Z0-9\s&']{1,30}?)(?:\s+(?:using|via|with|yesterday|today|last|paid|payment|upi|cash|credit|debit)|$)/i);
+  if (merchantMatch) {
+    result.desc = merchantMatch[1].trim();
+  } else {
+    // Use last meaningful word cluster
+    const cleaned = text.replace(/\b(?:add|spent|spend|paid|pay|rupees?|rs|inr|₹|\d[\d,]*|via|using|with|on|at|for|from|today|yesterday|credit|debit|card|upi|cash|gpay|phonepe|paytm)\b/gi,'').trim().replace(/\s+/g,' ');
+    if (cleaned.length > 2) result.desc = cleaned.split(/\s+/).slice(0,4).join(' ');
+  }
+
+  voiceParsed = result;
+  showVoiceConfirm(result);
+}
+
+function today() { return new Date().toISOString().split('T')[0]; }
+
+function showVoiceConfirm(r) {
+  if (!r.amount) { showToast("Couldn't catch the amount, try again", true); return; }
+  if (!r.catId) { showToast("Couldn't identify category, try again", true); return; }
+
+  const cat = getCat(r.catId);
+  const d = new Date(r.date+'T00:00:00');
+  const dateLabel = d.toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short'});
+
+  document.getElementById('vc-amount').textContent = fmt(r.amount);
+  document.getElementById('vc-desc').textContent = r.desc || '—';
+  document.getElementById('vc-cat').textContent = cat.emoji + ' ' + cat.name;
+  document.getElementById('vc-subcat').textContent = r.subCat || '—';
+  document.getElementById('vc-payment').textContent = r.payment;
+  document.getElementById('vc-date').textContent = dateLabel;
+
+  document.getElementById('voice-confirm-card').style.display = 'block';
+  document.getElementById('voice-confirm-card').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function confirmVoiceExpense() {
+  if (!voiceParsed || !voiceParsed.amount || !voiceParsed.catId) return;
+  const e = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+    amount: voiceParsed.amount,
+    desc: voiceParsed.desc || getCat(voiceParsed.catId).name,
+    date: voiceParsed.date,
+    catId: voiceParsed.catId,
+    subCat: voiceParsed.subCat || null,
+    payment: voiceParsed.payment,
+    notes: voiceParsed.notes,
+    createdAt: Date.now()
+  };
+  state.expenses.push(e);
+  save();
+  showToast('✓ Expense saved via voice!');
+  document.getElementById('voice-confirm-card').style.display = 'none';
+  document.getElementById('voice-transcript').style.display = 'none';
+  voiceParsed = null;
+  switchTab('home', null, 'home');
+}
+
+function fillFormFromVoice() {
+  if (!voiceParsed) return;
+  document.getElementById('voice-confirm-card').style.display = 'none';
+  if (voiceParsed.amount) document.getElementById('inp-amount').value = voiceParsed.amount;
+  if (voiceParsed.desc) document.getElementById('inp-desc').value = voiceParsed.desc;
+  if (voiceParsed.date) document.getElementById('inp-date').value = voiceParsed.date;
+  if (voiceParsed.catId) {
+    selectedCat = voiceParsed.catId;
+    selectedSubCat = voiceParsed.subCat;
+    renderCatSelector();
+    if (voiceParsed.catId) selectCat(voiceParsed.catId);
+    if (voiceParsed.subCat) {
+      setTimeout(() => selectSubCat(voiceParsed.subCat), 100);
+    }
+  }
+  if (voiceParsed.payment) {
+    selectedPayment = voiceParsed.payment;
+    document.querySelectorAll('.payment-btn').forEach(b => b.classList.toggle('selected', b.dataset.pm === selectedPayment));
+  }
+  document.getElementById('inp-amount').scrollIntoView({behavior:'smooth'});
+  voiceParsed = null;
+}
+
+// ═══════════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════════
 function init() {
@@ -1686,6 +2173,7 @@ function init() {
 
   renderHome();
   renderCatSelector();
+  initVoice();
 
   // PWA install hint (show on mobile)
   if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && !window.matchMedia('(display-mode: standalone)').matches) {
